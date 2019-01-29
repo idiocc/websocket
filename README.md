@@ -135,5 +135,6 @@ Client disconnected.
   </tr>
 </table>
 
+WebSocket Node.JS implementation by **Srushtika Neelakantam** from [Implementing a WebSocket server with Node.js](https://hackernoon.com/implementing-a-websocket-server-with-node-js-d9b78ec5ffa8)
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg?sanitize=true"></a></p>
