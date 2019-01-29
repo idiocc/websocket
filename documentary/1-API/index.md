@@ -19,6 +19,12 @@ The `websocket` method will setup the listener for the `UPGRADE` event on the se
 
 %TYPEDEF types/index.xml%
 
+_With the following client-side implementation:_
+
+%EXAMPLE: example/frontend/index.js%
+
+_the server can be setup to listen for connections._
+
 %EXAMPLE: example/example.jsx, ../src => @idio/websocket%
 
 ```fs

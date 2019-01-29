@@ -40,6 +40,24 @@ __<a name="type-config">`Config`</a>__: Options for the program.
 | onMessage | _(clientID: string, message: string) =&gt; void_ | The callback when a message is received from a client. | -       |
 | onConnect | _(clientID: string) =&gt; void_                  | The callback when a client is connected.               | -       |
 
+_With the following client-side implementation:_
+
+```js
+/* eslint-env browser */
+const ws = new WebSocket(`ws://${location.host}`, 'json')
+setInterval(() => {
+  if (ws.readyState == ws.OPEN) ws.send('')
+}, 2000)
+
+ws.addEventListener('message', async event => {
+  const { message, event: e } = JSON.parse(event.data)
+  console.log('Received %s:', e, message)
+  ws.send(navigator.userAgent)
+})
+```
+
+_the server can be setup to listen for connections._
+
 ```jsx
 /* yarn example/ */
 import websocket from '@idio/websocket'
