@@ -6,8 +6,8 @@ const { b } = require('erte');
  * @param {import('http').Server} server The HTTP server.
  * @param {Config} [config] Options for the program.
  * @param {boolean} [config.log=true] Whether to log on connect and disconnect. Default `true`.
- * @param {(clientID: string) => void} [config.onMessage] The callback when a message is received from a client.
- * @param {(clientID: string, message: string) => void} [config.onConnect] The callback when a client is connected.
+ * @param {(clientID: string, message: string) => void} [config.onMessage] The callback when a message is received from a client.
+ * @param {(clientID: string) => void} [config.onConnect] The callback when a client is connected.
  */
                function websocket(server, config = {}) {
   const {
@@ -138,8 +138,8 @@ function constructReply (data) {
 /**
  * @typedef {Object} Config Options for the program.
  * @prop {boolean} [log=true] Whether to log on connect and disconnect. Default `true`.
- * @prop {(clientID: string) => void} [onMessage] The callback when a message is received from a client.
- * @prop {(clientID: string, message: string) => void} [onConnect] The callback when a client is connected.
+ * @prop {(clientID: string, message: string) => void} [onMessage] The callback when a message is received from a client.
+ * @prop {(clientID: string) => void} [onConnect] The callback when a client is connected.
  */
 
 

@@ -3,10 +3,10 @@
     <prop boolean name="log" default="true">
       Whether to log on connect and disconnect.
     </prop>
-    <prop opt type="(clientID: string) => void" name="onMessage">
+    <prop opt type="(clientID: string, message: string) => void" name="onMessage">
       The callback when a message is received from a client.
     </prop>
-    <prop opt type="(clientID: string, message: string) => void" name="onConnect">
+    <prop opt type="(clientID: string) => void" name="onConnect">
       The callback when a client is connected.
     </prop>
   </type>

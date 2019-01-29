@@ -1,8 +1,8 @@
 # @idio/websocket
 
-[![npm version](https://badge.fury.io/js/@idio/websocket.svg)](https://npmjs.org/package/@idio/websocket)
+[![npm version](https://badge.fury.io/js/%40idio%2Fwebsocket.svg)](https://npmjs.org/package/@idio/websocket)
 
-`@idio/websocket` is Establishes WebSocket Connection Between Client And Server.
+`@idio/websocket` Establishes WebSocket Connection Between Client And Server.
 
 ```sh
 yarn add -E @idio/websocket
@@ -12,7 +12,7 @@ yarn add -E @idio/websocket
 
 - [Table Of Contents](#table-of-contents)
 - [API](#api)
-- [`websocket(arg1: string, arg2?: boolean)`](#mynewpackagearg1-stringarg2-boolean-void)
+- [`websocket(server: Server, config?: Config): ClientList`](#websocketserver-serverconfig-config-clientlist)
   * [`Config`](#type-config)
 - [Copyright](#copyright)
 
@@ -28,38 +28,94 @@ import websocket from '@idio/websocket'
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/1.svg?sanitize=true"></a></p>
 
-## `websocket(`<br/>&nbsp;&nbsp;`arg1: string,`<br/>&nbsp;&nbsp;`arg2?: boolean,`<br/>`): void`
+## `websocket(`<br/>&nbsp;&nbsp;`server: Server,`<br/>&nbsp;&nbsp;`config?: Config,`<br/>`): ClientList`
 
-Call this function to get the result you want.
+The `websocket` method will setup the listener for the `UPGRADE` event on the server, and store all connected clients in the client list. When clients disconnect, they are removed from that list. The list is a hash object where each key is the accept key sent by the client, and values are the callback functions to send messages to those clients.
 
 __<a name="type-config">`Config`</a>__: Options for the program.
 
-|   Name    |   Type    |    Description    | Default |
-| --------- | --------- | ----------------- | ------- |
-| shouldRun | _boolean_ | A boolean option. | `true`  |
-| __text*__ | _string_  | A text to return. | -       |
+|   Name    |                       Type                       |                      Description                       | Default |
+| --------- | ------------------------------------------------ | ------------------------------------------------------ | ------- |
+| log       | _boolean_                                        | Whether to log on connect and disconnect.              | `true`  |
+| onMessage | _(clientID: string, message: string) =&gt; void_ | The callback when a message is received from a client. | -       |
+| onConnect | _(clientID: string) =&gt; void_                  | The callback when a client is connected.               | -       |
 
-```js
+```jsx
 /* yarn example/ */
 import websocket from '@idio/websocket'
+import core from '@idio/core'
+import render from 'preact-render-to-string'
 
 (async () => {
-  const res = await websocket({
-    text: 'example',
+  const { url, server } = await core({
+    static: {
+      use: true,
+      root: 'example/frontend',
+    },
+    async index(ctx) {
+      ctx.body = '<!doctype html>' + render(
+        <html>
+          <head>
+            <title>Websocket Example</title>
+          </head>
+          <body>
+            <script type="module" src="index.js"/>
+          </body>
+        </html>
+      )
+    },
   })
-  console.log(res)
+  const clients = websocket(server, {
+    onConnect(clientId) {
+      clients[clientId]('handshake', 'welcome')
+    },
+    onMessage(clientId, message) {
+      console.log('Client %s says: %s', clientId, message)
+    },
+  })
+  console.log(url)
 })()
 ```
-```
-example
+
+```fs
+http://localhost:5000
+Client connected.
+Client FIM/Jvt9Ldb1J0HCx5ye8g== says:
+  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_0)
+  AppleWebKit/537.36 (KHTML, like Gecko)
+  Chrome/71.0.3578.98 Safari/537.36
+Client disconnected.
 ```
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/2.svg?sanitize=true"></a></p>
 
 ## Copyright
 
-(c) [Idio][1] 2019
+<table>
+  <tr>
+    <th>
+      <a href="https://artd.eco">
+        <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco" />
+      </a>
+    </th>
+    <th>
+      © <a href="https://artd.eco">Art Deco</a> for <a href="https://idio.cc">Idio</a>
+      2019
+    </th><th>
+        <a href="https://idio.cc">
+          <img src="https://avatars3.githubusercontent.com/u/40834161?s=100" width="100" alt="Idio" />
+        </a>
+      </th>
+    <th>
+      <a href="https://www.technation.sucks" title="Tech Nation Visa">
+        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif" alt="Tech Nation Visa" />
+      </a>
+    </th>
+    <th>
+      <a href="https://www.technation.sucks">Tech Nation Visa Sucks</a>
+    </th>
+  </tr>
+</table>
 
-[1]: https://idio.cc
 
 <p align="center"><a href="#table-of-contents"><img src=".documentary/section-breaks/-1.svg?sanitize=true"></a></p>
