@@ -1,6 +1,6 @@
 {
   "name": "@idio/websocket",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Establishes WebSocket Connection Between Client And Server.",
   "main": "build",
   "scripts": {
