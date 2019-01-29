@@ -1,10 +1,13 @@
 <types>
   <type name="Config" desc="Options for the program.">
-    <prop boolean name="shouldRun" default="true">
-      A boolean option.
+    <prop boolean name="log" default="true">
+      Whether to log on connect and disconnect.
     </prop>
-    <prop string name="text">
-      A text to return.
+    <prop opt type="(clientID: string) => void" name="onMessage">
+      The callback when a message is received from a client.
+    </prop>
+    <prop opt type="(clientID: string, message: string) => void" name="onConnect">
+      The callback when a client is connected.
     </prop>
   </type>
 </types>

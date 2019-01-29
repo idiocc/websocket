@@ -1,7 +1,7 @@
 {
   "name": "@idio/websocket",
   "version": "0.0.0",
-  "description": "Establishes WebSocket Connetion Between Client And Server.",
+  "description": "Establishes WebSocket Connection Between Client And Server.",
   "main": "build",
   "scripts": {
     "t": "zoroaster -a",
@@ -11,13 +11,13 @@
     "test-build": "ALAMODE_ENV=test-build yarn test",
     "lint": "eslint .",
     "doc": "NODE_DEBUG=doc doc documentary -o README.md",
-    "b": "alamode src -o build",
+    "b": "alamode src -o build -s",
     "d": "yarn-s d1",
     "d1": "NODE_DEBUG=doc doc src/index.js -g",
     "build": "yarn-s d b doc",
     "rec": "NODE_DEBUG=appshot appshot -T 23 -a Terminal -y 150 -f",
     "e": "node example",
-    "example/": "yarn e example/example.js"
+    "example/": "yarn e example/example"
   },
   "files": [
     "build"
@@ -37,10 +37,16 @@
   },
   "homepage": "https://github.com/idiocc/websocket#readme",
   "devDependencies": {
-    "alamode": "1.6.1",
-    "documentary": "1.20.1",
+    "@idio/core": "1.2.0",
+    "alamode": "1.7.1",
+    "documentary": "1.21.1",
     "eslint-config-artdeco": "1.0.1",
+    "preact": "8.4.2",
+    "preact-render-to-string": "4.1.0",
     "yarn-s": "1.1.0",
     "zoroaster": "3.6.6"
+  },
+  "dependencies": {
+    "erte": "1.1.6"
   }
 }
