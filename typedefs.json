@@ -1,0 +1,14 @@
+{
+  "_idio.websocket": {
+    "link": "https://github.com/idiocc/websocket#websocketserver-httpserverconfig-websocketconfig-objectstring-sendmessage",
+    "description": "Sets up a listener for the `UPGRADE` event on the server, and stores all connected clients in the client list. When clients disconnect, they are removed from this list. The list is a hash object where each key is the _accept key_ sent by the client, and values are the callback functions to send messages to those clients."
+  },
+  "_idio.WebSocketConfig": {
+    "link": "https://github.com/idiocc/websocket#type-websocketconfig",
+    "description": "Options for the web socket protocol communication."
+  },
+  "_idio.sendMessage": {
+    "link": "https://github.com/idiocc/websocket#sendmessageevent-stringmessage--void",
+    "description": ""
+  }
+}

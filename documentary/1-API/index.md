@@ -8,7 +8,7 @@ import websocket from '@idio/websocket'
 
 %~%
 
-<typedef name="websocket">types/api.xml</typedef>
+<typedef name="websocket" noArgTypesInToc>types/api.xml</typedef>
 
 <typedef>types/index.xml</typedef>
 
@@ -29,5 +29,7 @@ Client FIM/Jvt9Ldb1J0HCx5ye8g== says:
   Chrome/71.0.3578.98 Safari/537.36
 Client disconnected.
 ```
+
+<typedef level="2" name="sendMessage" noArgTypesInToc>types/api.xml</typedef>
 
 %~%

@@ -2,10 +2,11 @@
 
 %NPM: @idio/websocket%
 
-`@idio/websocket` Establishes WebSocket Connection Between Client And Server.
+`@idio/websocket` Establishes _WebSocket_ Connections Between Clients And The Server.
 
 ```sh
-yarn add -E @idio/websocket
+yarn add @idio/websocket
+npm i @idio/websocket
 ```
 
 ## Table Of Contents
