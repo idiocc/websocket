@@ -2,22 +2,39 @@ import { b } from 'erte'
 import { constructReply, parseMessage, generateAcceptValue } from './lib'
 
 /**
- * @type {}
+ * @type {_idio.websocket}
  */
 function websocket(server, config = {}) {
   const {
-    onMessage = () => {},
-    onConnect = () => {},
+    // eslint-disable-next-line no-unused-vars
+    onMessage = (cid, m) => {},
+    // eslint-disable-next-line no-unused-vars
+    onConnect = (cid) => {},
     log = true,
   } = config
   const clients = {}
-  server.on('upgrade', (req, socket) => {
-    if (req.headers['upgrade'] !== 'websocket') {
+  /**
+   * @param {!http.IncomingMessage} req
+   * @param {!net.Socket} socket
+   */
+  function listener(req, socket) {
+    /**
+     * @suppress {checkTypes}
+     */
+    const UPGRADE = req.headers['upgrade']
+    if (UPGRADE != 'websocket') {
       socket.end('HTTP/1.1 400 Bad Request')
       return
     }
-    const acceptKey = req.headers['sec-websocket-key']
-    const hash = generateAcceptValue(acceptKey)
+    /**
+     * @suppress {checkTypes}
+     */
+    const PROTO = req.headers['sec-websocket-protocol']
+    /**
+     * @suppress {checkTypes}
+     */
+    const KEY = req.headers['sec-websocket-key']
+    const hash = generateAcceptValue(KEY)
     const responseHeaders = [
       'HTTP/1.1 101 Web Socket Protocol Handshake',
       'Upgrade: WebSocket',
@@ -25,8 +42,7 @@ function websocket(server, config = {}) {
       `Sec-WebSocket-Accept: ${hash}`,
     ]
     // Read the subprotocol from the client request headers:
-    const protocol = req.headers['sec-websocket-protocol']
-    const protocols = !protocol ? [] : protocol.split(',').map(s => s.trim())
+    const protocols = !PROTO ? [] : PROTO.split(',').map(s => s.trim())
     if (protocols.includes('json')) {
       responseHeaders.push('Sec-WebSocket-Protocol: json')
     }
@@ -35,26 +51,40 @@ function websocket(server, config = {}) {
     socket.on('data', buffer => {
       const message = parseMessage(buffer)
       if (message) {
-        onMessage(acceptKey, message)
+        onMessage(KEY, message)
       } else if (message === null) {
-        delete clients[acceptKey]
+        delete clients[KEY]
         log && console.log(b('Client disconnected.', 'red'))
       }
     })
-    clients[acceptKey] = (event, message) => {
+    /**
+     * @type {_idio.sendMessage}
+     */
+    const sendMessage = (event, message) => {
       socket.write(constructReply({ event, message }))
     }
-    onConnect(acceptKey)
-  })
+    clients[KEY] = sendMessage
+    onConnect(KEY)
+  }
+  server.on('upgrade', listener)
   return clients
 }
 
 export default websocket
 
-/* documentary types/index.xml */
 /**
- * @typedef {Object} Config Options for the program.
- * @prop {boolean} [log=true] Whether to log on connect and disconnect. Default `true`.
- * @prop {(clientID: string, message: string) => void} [onMessage] The callback when a message is received from a client.
- * @prop {(clientID: string) => void} [onConnect] The callback when a client is connected.
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').websocket} _idio.websocket
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('..').sendMessage} _idio.sendMessage
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('http').IncomingMessage} http.IncomingMessage
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('net').Socket} net.Socket
  */

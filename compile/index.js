@@ -13,6 +13,8 @@ function websocket(server, config) {
   return _websocket(server, config)
 }
 
+module.exports = websocket
+
 /* typal types/index.xml namespace */
 /**
  * @typedef {_idio.WebSocketConfig} WebSocketConfig Options for the web socket protocol communication.
@@ -22,9 +24,11 @@ function websocket(server, config) {
  * @prop {(clientID: string) => void} [onConnect] The callback when a client is connected.
  */
 
-/* typal types/api.xml namespace ignore:_idio.websocket */
+/* typal types/api.xml namespace */
 /**
  * @typedef {import('http').Server} http.Server
+ * @typedef {_idio.websocket} websocket Sets up a listener for the `UPGRADE` event on the server, and stores all connected clients in the client list. When clients disconnect, they are removed from this list. The list is a hash object where each key is the _accept key_ sent by the client, and values are the callback functions to send messages to those clients.
+ * @typedef {(server: !http.Server, config?: !_idio.WebSocketConfig) => !Object<string, _idio.sendMessage>} _idio.websocket Sets up a listener for the `UPGRADE` event on the server, and stores all connected clients in the client list. When clients disconnect, they are removed from this list. The list is a hash object where each key is the _accept key_ sent by the client, and values are the callback functions to send messages to those clients.
  * @typedef {_idio.sendMessage} sendMessage
  * @typedef {(event: string, message: *) => void} _idio.sendMessage
  */
