@@ -1,6 +1,6 @@
 {
   "name": "@idio/websocket",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Establishes WebSocket Connection Between Client And Server.",
   "main": "compile/index.js",
   "module": "src/index.js",
