@@ -7,5 +7,6 @@ setInterval(() => {
 ws.addEventListener('message', async event => {
   const { message, event: e } = JSON.parse(event.data)
   console.log('Received %s:', e, message)
+  window.WSstatus.innerText = message
   ws.send(navigator.userAgent)
 })

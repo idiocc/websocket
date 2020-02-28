@@ -1,13 +1,22 @@
-<types>
-  <type name="Config" desc="Options for the program.">
+<types ns="_idio">
+  <type name="WebSocketConfig" desc="Options for the web socket protocol communication.">
     <prop boolean name="log" default="true">
       Whether to log on connect and disconnect.
     </prop>
-    <prop opt type="(clientID: string, message: string) => void" name="onMessage">
+    <fn opt void name="onMessage">
+      <arg string name="clientID">
+        The unique ID of the client.
+      </arg>
+      <arg string name="message">
+        A message sent by the client.
+      </arg>
       The callback when a message is received from a client.
-    </prop>
-    <prop opt type="(clientID: string) => void" name="onConnect">
+    </fn>
+    <fn opt void name="onConnect">
+      <arg string name="clientID">
+        The unique ID of the client.
+      </arg>
       The callback when a client is connected.
-    </prop>
+    </fn>
   </type>
 </types>

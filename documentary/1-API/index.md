@@ -8,24 +8,17 @@ import websocket from '@idio/websocket'
 
 %~%
 
-```## websocket => ClientList
-[
-  ["server", "Server"],
-  ["config?", "Config"]
-]
-```
+<typedef name="websocket">types/api.xml</typedef>
 
-The `websocket` method will setup the listener for the `UPGRADE` event on the server, and store all connected clients in the client list. When clients disconnect, they are removed from that list. The list is a hash object where each key is the accept key sent by the client, and values are the callback functions to send messages to those clients.
-
-%TYPEDEF types/index.xml%
+<typedef>types/index.xml</typedef>
 
 _With the following client-side implementation:_
 
-%EXAMPLE: example/frontend/index.js%
+%EXAMPLE: example/frontend%
 
 _the server can be setup to listen for connections._
 
-%EXAMPLE: example/example.jsx, ../src => @idio/websocket%
+%EXAMPLE: example, ../src => @idio/websocket%
 
 ```fs
 http://localhost:5000

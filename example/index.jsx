@@ -1,7 +1,6 @@
 /* yarn example/ */
+import core, { render } from '@idio/idio'
 import websocket from '../src'
-import core from '@idio/core'
-import render from 'preact-render-to-string'
 
 (async () => {
   const { url, server } = await core({
@@ -9,17 +8,21 @@ import render from 'preact-render-to-string'
       use: true,
       root: 'example/frontend',
     },
-    async index(ctx) {
-      ctx.body = '<!doctype html>' + render(
+    index(ctx) {
+      ctx.body = render(
         <html>
           <head>
             <title>Websocket Example</title>
           </head>
           <body>
+            <h1>
+              Hello World.
+            </h1>
+            Server says: <span id="WSstatus" />
             <script type="module" src="index.js"/>
           </body>
         </html>
-      )
+        , { addDoctype: true })
     },
   })
   const clients = websocket(server, {

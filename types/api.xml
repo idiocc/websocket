@@ -1,0 +1,20 @@
+<types ns="_idio">
+  <import from="http" name="Server" />
+  <method name="websocket" return="!Object<string, _idio.sendMessage>">
+    <arg type="!http.Server" name="server">
+      The server on which to setup the listener.
+    </arg>
+    <arg opt type="!_idio.WebSocketConfig" name="config">
+      Additional configuration.
+    </arg>
+    Sets up a listener for the `UPGRADE` event on the server, and stores all connected clients in the client list. When clients disconnect, they are removed from this list. The list is a hash object where each key is the _accept key_ sent by the client, and values are the callback functions to send messages to those clients.
+  </method>
+  <method name="sendMessage">
+    <arg string name="event">
+      The name of the event to send.
+    </arg>
+    <arg name="message">
+      The data, that will be serialised in _JSON_.
+    </arg>
+  </method>
+</types>
