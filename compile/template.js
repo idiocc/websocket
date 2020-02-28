@@ -1,4 +1,4 @@
-import { _websocket } from './websocket'
+const { _websocket } = require('./websocket')
 
 /**
  * @methodType {_idio.websocket}

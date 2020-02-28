@@ -1,4 +1,4 @@
-import { _websocket } from './websocket'
+const { _websocket } = require('./websocket')
 
 /**
  * Sets up a listener for the `UPGRADE` event on the server, and stores all connected clients in the client list. When clients disconnect, they are removed from this list. The list is a hash object where each key is the _accept key_ sent by the client, and values are the callback functions to send messages to those clients.
